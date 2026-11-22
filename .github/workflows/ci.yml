@@ -2,9 +2,9 @@ name: BAL CI
 
 on:
   push:
-    branches: ["bal-*"]
+    branches: ["main", "bal-*"]
   pull_request:
-    branches: ["bal-v0.4.0-dev", "main"]
+    branches: ["main", "bal-v0.4.0-dev"]
   workflow_dispatch:
 
 permissions:

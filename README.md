@@ -1,32 +1,39 @@
 # BAL — Bio-Availability Language
 
-**Standalone release: v0.3.0**
+**Independent interpreted language · development version 0.5.0.dev1**
 
-BAL is an independent domain-specific research language and runtime for
-normalized bioavailability modeling and DDS-inspired multi-compartment
-simulation. It is maintained separately from BPL.
-
-## Contents
-The complete source distribution is provided in
-`BAL_v0.3.0_standalone.tar.gz`. It contains the Python package, tests,
-reference JSON scenario, documentation, MIT license, and GitHub Actions workflow.
-
-## Quick start
-Extract the archive, enter the extracted directory, then run:
-
-```bash
-python -m pip install -e .
-python -m unittest discover -s tests -v
-bal-sim --config examples/bal_multicompartment.json
-```
-
-## Model scope
-The five-compartment model represents a DDS depot, gut, liver, plasma and tissue,
-with cumulative loss compartments and a phenomenological tolerance state.
-All example coefficients are synthetic software demonstration values, not
-experimentally validated biological or clinical measurements. BAL is a research
-prototype, not a clinical dosing or treatment recommendation system.
+BAL now includes its own `.bal` programming language frontend and interpreter:
+lexer, parser, expression grammar, lexical scopes, functions, lists, dictionaries,
+conditionals, loops, standard built-ins, a REPL, `bal run`, and `bal check`.
+Its research built-ins connect the language to the BAL availability equation,
+parameter fitting and global sensitivity modules.
 
 ## Independence
-BAL has its own repository, package, syntax roadmap, runtime and versioning.
-It does not depend on BPL.
+
+BAL has a separate language syntax, runtime package, command-line executable,
+project metadata, documentation, tests and CI workflow. It has no BPL dependency
+or BPL code. Python 3.10+ is used only as the reference implementation host.
+
+## Install and run
+
+```bash
+python -m pip install .
+bal --version
+bal check examples/availability.bal
+bal run examples/availability.bal
+bal run examples/hello.bal
+bal repl
+```
+
+## Example
+
+```bal
+let dds_rate = 0.70
+let first_pass = 0.15
+let feedback = 0.40
+let y = availability(dds_rate, first_pass, feedback, 2.0, 1.2)
+print y
+```
+
+See [the language specification](docs/BAL_LANGUAGE_SPEC.md). This is an independent
+language prototype; it is not a clinical decision or dosing system.

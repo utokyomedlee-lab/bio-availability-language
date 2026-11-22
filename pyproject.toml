@@ -19,4 +19,4 @@ bal = "bal_runtime.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["bal", "bal_runtime*"]
+include = ["bal*", "bal_runtime*"]

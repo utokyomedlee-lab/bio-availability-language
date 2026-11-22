@@ -1,0 +1,35 @@
+name: BAL CI
+
+on:
+  push:
+    branches: ["bal-*"]
+  pull_request:
+    branches: ["bal-v0.4.0-dev", "main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install BAL
+        run: python -m pip install --upgrade pip && python -m pip install .
+      - name: Compile source
+        run: python -m compileall -q bal bal_runtime
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Check BAL example
+        run: bal check examples/availability.bal
+      - name: Execute BAL examples
+        run: bal run examples/hello.bal && bal run examples/availability.bal

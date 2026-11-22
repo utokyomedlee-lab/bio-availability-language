@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bio-availability-language"
+version = "0.5.0.dev1"
+description = "Independent BAL language interpreter and bio-availability research runtime"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "BAL contributors"}]
+keywords = ["BAL", "programming-language", "bioavailability", "simulation"]
+classifiers = ["Programming Language :: Python :: 3", "Programming Language :: Python :: 3 :: Only", "Operating System :: OS Independent"]
+dependencies = []
+
+[project.scripts]
+bal = "bal_runtime.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["bal", "bal_runtime*"]
